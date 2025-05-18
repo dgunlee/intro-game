@@ -21,7 +21,7 @@ bool Game::Initialize()
 
 	mRenderer = SDL_CreateRenderer(mWindow, -1,
 								   SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-                                   
+
 	return mRenderer != nullptr;
 }
 
@@ -34,12 +34,25 @@ void Game::Shutdown()
 
 void Game::RunLoop()
 {
-
+    while (!mGameOver){
+        ProcessInput();
+        UpdateGame();
+        GenerateOutput();
+    }
     return;
 }
 
 void Game::ProcessInput()
 {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)){
+        if (event.type == SDL_QUIT){
+            mGameOver = !mGameOver;
+        }
+    }
+
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
+
     return;
 }
 
@@ -51,4 +64,19 @@ void Game::UpdateGame()
 void Game::GenerateOutput()
 {
     return;
+}
+
+std::vector<Actor*> Game::GetActors(){
+    return mActors;
+}
+
+void Game::AddActor(Actor* actor){
+    mActors.emplace_back(actor);
+}
+
+void Game::RemoveActor(Actor* actor){
+    auto it = std::find(mActors.begin(), mActors.end(), actor);
+    if (it != mActors.end()){
+        mActors.erase(it);
+    }
 }
