@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Component.h"
 
-Actor::Actor(Game* game): mGame(game) {
+Actor::Actor(Game* game): mGame(game), mScale(1.0f) {
     mGame->AddActor(this);
 }
 
@@ -34,4 +34,27 @@ void Actor::ProcessInput(const Uint8* keyState){
 
 void Actor::AddComponent(Component* c){
     mComponents.emplace_back(c);
+    std::sort(mComponents.begin(), mComponents.end(), [](Component* a, Component* b) {
+		return a->GetUpdateOrder() < b->GetUpdateOrder();
+	});
+}
+
+void Actor::SetPosition(float x, float y){
+    pos.SetPosition(x, y);
+}
+
+void Actor::SetPosition(int x, int y){
+    pos.SetPosition(x*1.0, y*1.0);
+}
+
+Game* Actor::GetGame(){
+    return mGame;
+}
+
+Position Actor::GetPosition(){
+    return pos;
+}
+
+void Actor::OnProcessInput(const Uint8* keyState){
+
 }
