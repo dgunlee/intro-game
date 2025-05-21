@@ -46,4 +46,18 @@ Me::~Me(){
 
 void Me::OnUpdate(float deltaTime){
 
+    if (mIsJumping){
+        mJumpTimer -= deltaTime;
+        if (mJumpTimer < 0.0f){
+            SetJump(false);
+            SetLastSpace(false);
+        }
+    }
+}
+
+void Me::SetJump(bool jump){
+    if (jump){
+        mJumpTimer = 1.0f;
+    }
+    mIsJumping = jump;
 }

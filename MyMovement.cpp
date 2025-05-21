@@ -38,12 +38,27 @@ void MyMovement::ProcessInput(const Uint8* keyState) {
     else {
         mState = Idle;
     }
+    if (keyState[SDL_SCANCODE_SPACE] && !mPlayer->GetLastSpace()){
+        mPlayer->SetJump(true);
+        mPlayer->SetLastSpace(true);
+    }
 }
 void MyMovement::Update(float deltaTime) {
     float mOwnerX = mOwner->GetPosition().GetX();
     float mOwnerY = mOwner->GetPosition().GetY();
     mOwner->SetPosition(mOwnerX + (xPos * deltaTime), mOwnerY + (yPos * deltaTime));
     
+    if (mPlayer->GetJump()){
+        mOwnerX = mOwner->GetPosition().GetX();
+        mOwnerY = mOwner->GetPosition().GetY();
+        if (mPlayer->GetJumpTimer() < 0.5f){
+            mOwner->SetPosition(mOwnerX, mOwnerY + 1.0f);
+        }
+        else {
+            mOwner->SetPosition(mOwnerX, mOwnerY - 1.0f);
+        }
+    }
+
     UpdateAnimation();
 }
 

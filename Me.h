@@ -12,7 +12,17 @@ public:
 
     int DRAW_ORDER = 200;
 
+    void SetJump(bool jump);
+    bool GetJump() { return mIsJumping; }
+    float GetJumpTimer() { return mJumpTimer; }
+
+    void SetLastSpace(bool jump) { mLastSpace = jump; }
+    bool GetLastSpace() { return mLastSpace; }
+
 private:
     class MyMovement* mMyMovement;
     class AnimatedSprite* mAnimatedSprite;
+    bool mIsJumping = false;
+    float mJumpTimer = 0.0f;
+    bool mLastSpace = false;
 };
