@@ -113,6 +113,12 @@ void Game::GenerateOutput()
 }
 
 void Game::LoadData(){
+    Actor* background = new Actor(this);
+    background->SetPosition(WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f);
+    background->SetScale(0.30f);
+    SpriteComponent* backgroundSprite = new SpriteComponent(background);
+    backgroundSprite->SetTexture(GetTexture("assets/background/bg2.png"));
+
     me = new Me(this);
     me->SetPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
 }

@@ -10,7 +10,7 @@ public:
     void Shutdown();
     void RunLoop();
 
-    const int WINDOW_WIDTH = 512;
+    const int WINDOW_WIDTH = 400;
     const int WINDOW_HEIGHT = 448;
     const int MIN_DELTA = 33;
     const int MAX_DELTA = 16;
